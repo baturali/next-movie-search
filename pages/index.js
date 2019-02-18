@@ -29,13 +29,6 @@ export default class extends React.Component {
       searchedString: '',
       viewedPages: []
     }
-    //this.changePage = this.changePage.bind(this)
-  }
-
-  componentWillMount() {
-    this.setState({
-      images: this.props.images
-    })
   }
 
   static getInitialProps({query}) {
@@ -45,8 +38,6 @@ export default class extends React.Component {
   // handling escape close
   componentDidMount() {
     document.addEventListener('keydown', this.onKeyDown)
-    console.log('state', this.state)
-    console.log('searched', this.state.searchedString)
   }
 
   componentWillUnmount() {
