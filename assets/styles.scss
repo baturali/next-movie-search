@@ -1,0 +1,143 @@
+@import "~bulma/bulma";
+
+html, body {
+  margin: 0;
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 1.2em;
+}
+
+.search-bar {
+  display: table;
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  padding-top: 50px;
+  margin: 0 auto;
+  height: 100px;
+
+  .align {
+    display: table;
+    margin: 0 auto;
+  }
+}
+
+.list {
+  margin-top: 50px;
+  padding: 10px 50px 50px 50px !important;
+  text-align: center;
+  box-shadow: none;
+  
+  .margin {
+    display: table;
+    margin: 0 auto;
+    height: 600px;
+    overflow: auto;
+
+    .films-box {
+      display: flex;
+      width: 100%;
+      min-width: 900px;
+
+      .padding {padding: 25px !important}
+      .MuiPaper-elevation1-1198 {
+        border: 2px solid red !important;
+        box-shadow: 0px 1px 20px 5px rgba(0,0,0,0.2),
+        0px 5px 5px 0px rgba(0,0,0,0.14),
+        0px 2px 1px -1px rgba(0,0,0,0.12) !important;
+        -moz-box-shadow: 0px 1px 20px 5px rgba(0,0,0,0.2),
+        0px 5px 5px 0px rgba(0,0,0,0.14),
+        0px 2px 1px -1px rgba(0,0,0,0.12) !important;
+        -webkit-box-shadow: 0px 1px 20px 5px rgba(0,0,0,0.2),
+        0px 5px 5px 0px rgba(0,0,0,0.14),
+        0px 2px 1px -1px rgba(0,0,0,0.12) !important;
+      }
+      .film-container {
+        max-width: 1300px;
+        min-width: 900px;
+
+        .defaultText {
+          width: 100%;
+          margin-top: 100px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .pagination-box {
+    min-width: 900px;
+
+    #page-numbers {
+      padding: 35px;
+      list-style: none;
+      width: auto;
+      display: table;
+      margin: 0 auto;
+    }
+    
+    #page-numbers > button {
+      width: 40px;
+      font-size: 18px;
+      float: left;
+      border-radius: 5px;
+      margin: 5px;
+      padding: 5px;
+      display: table-cell;
+      background: none;
+      border-radius: 50%;
+      border: 1px solid black;
+      outline: none !important;
+      margin-right: 0.3em;
+      color: #000;
+      user-select: none;
+      cursor: pointer;
+    }
+    #page-numbers > button:active, .selected {
+      color: #fff !important;
+      background-color: #000 !important;
+    }
+  }
+}
+
+
+/***** Detail Page *****/
+.detailContainer {
+  display: table;
+  margin: 0 auto;
+  margin-top: 100px;
+
+  .left {
+    float: left;
+    img {
+      max-width: 500px;
+      height: auto;
+    }
+  }
+  .right {
+    float: left;
+    min-width: 400px;
+    margin-left: 60px;
+    table {width: 100%;}
+
+    .heads {
+      display: table;
+      width: 30%;
+      float: left;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+    .infos {
+      display: table;
+      width: 65%;
+      margin-left: 5%;
+      margin-top: 10px;
+      float: right;
+    }
+    .toHome {
+      margin-top: 100px;
+      width: 100%;
+      float: left;
+      text-align: center;
+    }
+  }
+}
