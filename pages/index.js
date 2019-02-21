@@ -38,6 +38,11 @@ export default class extends React.Component {
   // handling escape close
   componentDidMount() {
     document.addEventListener('keydown', this.onKeyDown)
+    
+    const pastSearch = localStorage.getItem('query')
+    if(pastSearch && pastSearch.length) {
+      this.fetchFilms(pastSearch, true)
+    }
   }
 
   componentWillUnmount() {
@@ -72,14 +77,45 @@ export default class extends React.Component {
             fetch('http://www.omdbapi.com/?s='+query+'&page='+(this.state.currentPage+1)+'&apikey=4dfc64fa').then((response) => response.json())
           ])
           console.log('data', data)
-          
-          for (var tenResult of data) {
+          if(data && data[1].Response != 'False') {
+            for (var tenResult of data) {
+              if(this.state.films[0] &&
+                data[0].Search[0].Title !== this.state.films[0].Title &&
+                this.state.viewedPages.includes(this.state.currentPage+1)
+              ) {
+                let newFilms = new Array()
+                for (var obj of tenResult.Search) {
+                  newFilms.push(obj)
+                }
+                this.setState({
+                  films: newFilms,
+                  currentPage: 1,
+                  viewedPages: [1]
+                })
+              } else {
+                for (var obj of tenResult.Search) {
+                  this.setState(prevState => ({
+                    films: [...prevState.films, obj]
+                  }))
+                }
+              }
+            }
+
+            let totalFilms = Number(data[0].totalResults)
+            this.setState(prevState => ({
+              viewedPages: [...prevState.viewedPages, this.state.currentPage+1],
+              totalResults: totalFilms,
+              searchedString: query
+            }))
+            
+          } else if (data && data[0].Response == 'True' && data[1].Response == 'False') {
+            console.log('else data', data)
             if(this.state.films[0] &&
               data[0].Search[0].Title !== this.state.films[0].Title &&
               this.state.viewedPages.includes(this.state.currentPage+1)
             ) {
               let newFilms = new Array()
-              for (var obj of tenResult.Search) {
+              for (var obj of data[0].Search) {
                 newFilms.push(obj)
               }
               this.setState({
@@ -88,20 +124,28 @@ export default class extends React.Component {
                 viewedPages: [1]
               })
             } else {
-              for (var obj of tenResult.Search) {
+              for (var obj of data[0].Search) {
                 this.setState(prevState => ({
                   films: [...prevState.films, obj]
                 }))
               }
             }
+
+            let totalFilms = Number(data[0].totalResults)
+            this.setState(prevState => ({
+              viewedPages: [...prevState.viewedPages, this.state.currentPage+1],
+              totalResults: totalFilms,
+              searchedString: query
+            }))
+          } else {
+            this.setState({
+              films: [],
+              currentPage: 1,
+              totalResults: 0,
+              viewedPages: [1]
+            })
           }
 
-          let totalFilms = Number(data[0].totalResults)
-          this.setState(prevState => ({
-            viewedPages: [...prevState.viewedPages, this.state.currentPage+1],
-            totalResults: totalFilms,
-            searchedString: query
-          }))
           localStorage.setItem('query', query)
         }
       } catch (error) {
