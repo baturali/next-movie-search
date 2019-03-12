@@ -12,3 +12,5 @@ or
 
 then
 # http://localhost:3000/
+
+![](movie-search.gif)
